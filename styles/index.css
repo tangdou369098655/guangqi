@@ -1,0 +1,457 @@
+#app {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    background-image: url(../image/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: arial, 'Microsoft Yahei', '微软雅黑';
+    color: #fff;
+}
+
+#svg {
+    display: none;
+}
+
+/* hader */
+.g-header {
+    height: 80px;
+    background-image: url(../image/header.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.g-header-title {
+    text-align: center;
+    line-height: 78px;
+    font-size: 40px;
+    color: #fff;
+    letter-spacing: 14px;
+    text-shadow: 0px 0px 5px #6ac6ff;
+}
+
+.g-header-time {
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    font-size:20px;
+    line-height:30px;
+}
+
+/* main */
+.g-main {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 0 25px;
+}
+
+.g-sele {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.g-left {
+    flex: 1
+}
+
+.g-center {
+    width: 1050px;
+    margin: 0 23px;
+}
+
+.g-right {
+    flex: 1
+}
+
+.relative {
+    position: relative;
+}
+
+/* box */
+.g-box-mt {
+    margin-top: 27px;
+}
+
+.g-box {
+    /* position: relative; */
+    min-height: 200px;
+}
+
+.g-box .g-box-title {
+    height: 38px;
+    background-image: url(../image/box-title.png);
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: 0 0;
+    line-height: 36px;
+    padding-left: 13px;
+    margin-bottom: 19px;
+}
+
+.g-box .g-box--tcontent {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.g-box-main {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.g-box--it {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.g-box--it::after {
+    position: absolute;
+    content: " ";
+    width: 16px;
+    height: 18px;
+    background: url(../image/ilt.png) no-repeat 100% 100%;
+
+}
+
+.g-box--it::before {
+    position: absolute;
+    content: " ";
+    right: 0;
+    width: 16px;
+    height: 18px;
+    background: url(../image/irt.png) no-repeat 100% 100%;
+}
+
+.g-box--ib {
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+    right: 0;
+
+}
+
+.g-box--ib::before {
+    position: absolute;
+    content: " ";
+    width: 16px;
+    height: 18px;
+    background: url(../image/ibt.png) no-repeat 100% 100%;
+}
+
+.g-box--ib::after {
+    position: absolute;
+    content: " ";
+    right: 0;
+    width: 16px;
+    height: 18px;
+    background: url(../image/ibr.png) no-repeat 100% 100%;
+}
+
+.g-box-content {
+    min-height: 100px;
+    position: absolute;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+    top: 1px;
+    border: 2px solid #2852a0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.jianbian{
+    position: absolute;
+    left:10px;
+    bottom:10px;
+}
+.nanshabox {
+    width: 104px;
+    height: 156px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    background: rgba(200, 200, 200, 0.1)
+}
+
+.nanshabox img {
+    width: 100%;
+    height: 100%;
+
+}
+
+.nansha {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.g-full {
+    position: absolute;
+    right: 8px;
+    left: 8px;
+    top: 7px;
+    bottom: 7px;
+    background: rgba(64, 130, 255, 0.05);
+}
+
+.attack-c-items {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.attack-c-item {
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+.attack-c-item .ac-title {
+    line-height: 70px;
+    color: #ffbd00;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.attack-c-item .ac-data {
+    line-height: 18px;
+    text-align: center;
+}
+
+.attack-c-item .ac-data img {
+    vertical-align: middle;
+    height: 18px;
+}
+
+.attack-c-item .ac-data span {
+    height: 18px;
+    vertical-align: middle;
+    margin-left: 2px;
+}
+
+.g-overview {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.g-overview-item {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.g-overview-title {
+    line-height: 70px;
+    color: #ffbd00;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 2px;
+
+}
+
+.g-select {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    transform: translate(-50%, 0);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.g-select:hover .g-selectlist {
+    display: block;
+}
+
+.g-select:hover img {
+    transform: rotate(180deg);
+}
+
+.g-select span {
+    font-size: 16px;
+}
+
+.g-selectlist {
+    position: absolute;
+    text-align: center;
+    line-height: 28px;
+    padding-top: 5px;
+    display: none;
+}
+
+.g-selectlist li {
+    transition: all .2s;
+}
+
+.g-selectlist li:hover {
+    color: #ff4b4b;
+}
+
+.g-select img {
+    height: 10px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin-left: 5px;
+}
+
+
+.g-overview-data {
+    height: 18px;
+    font-weight: bold;
+}
+
+.g-scroll-list {
+    background: url(../image/attack_list.png) no-repeat 100% 100%;
+    width: 275px;
+    height: 44px;
+    line-height: 44px;
+    color: #fff;
+    position: absolute;
+    left: 50%;
+    top: -40px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.g-scroll-list img {
+    vertical-align: middle;
+    line-height: 44px;
+    height: 28px;
+    position: relative;
+    top: -3px;
+    margin-right: 5px;
+}
+
+.g-scroll-list span {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.g-atballe-pad {
+    padding: 12px 20px;
+}
+
+.g-atballe {
+    width: 100%;
+
+}
+
+.g-atballe thead {
+    font-weight: 600;
+}
+
+.g-atballe thead tr {
+    margin-bottom: 8px;
+}
+
+.g-atballe tr {
+    line-height: 26px;
+}
+
+.g-atballe td {
+    padding: 0 5px;
+
+}
+
+.g-atballe thead,
+.g-atballe tbody {
+    text-align: center;
+    font-size: 14px;
+}
+
+.g-atballe tbody {
+    color: #fff;
+}
+
+
+.g-at-ac1 {
+    color: #ffbc4b
+}
+
+.g-at-ac2 {
+    color: #ff4b4b
+}
+
+.g-at-ac3 {
+    opacity: 0.8;
+}
+
+.g-emap {
+    position: relative;
+}
+
+.gmap {
+    position: absolute;
+    left: -25px;
+    top: -10px;
+    right: -25px;
+    bottom: 0;
+}
+
+.text-over {
+    overflow: hidden;
+    /*超出部分隐藏*/
+    text-overflow: ellipsis;
+    /* 超出部分显示省略号 */
+    white-space: nowrap;
+    /*规定段落中的文本不进行换行 */
+}
+.items-over{
+    display:inline-block;
+    overflow: hidden;
+    position: relative;
+    top:5px;
+}
+.backMap{
+    position: absolute;
+    left:20px;
+    color:#fff;
+    cursor: pointer;
+    z-index: 20;
+    top:50px;
+}
+.attack-map-list{
+    position: absolute;
+    left:0;
+    bottom:50px;
+    width:400px;
+    height:150px;
+    
+}
+
+.attack-map-item{
+    display:flex;
+    line-height:24px;
+    
+}
+.attack-map-item span{
+    flex:1;
+    width:50%; 
+    text-indent:10px;
+}
+.map-active{
+    animation:mapsc 2s;
+    
+}
+@keyframes mapsc {
+    from {
+        color:#ffbc4b;
+    }
+
+    to {
+        left:#fff;
+    }
+}

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .l-loding {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: #eaeaea;
+            z-index: 20;
+        }
+
+        .loadEffect {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 0 auto;
+            margin-top: 100px;
+            top: 20%;
+            transform: translateX(-50%);
+        }
+
+        .loadEffect span {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+
+            background: #5588aa;
+            position: absolute;
+            -webkit-animation: load 1.04s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        .loadEffect span:nth-child(1) {
+            left: 0;
+            top: 50%;
+            margin-top: -8px;
+            -webkit-animation-delay: 0.13s;
+        }
+
+        .loadEffect span:nth-child(2) {
+            left: 14px;
+            top: 14px;
+            -webkit-animation-delay: 0.26s;
+        }
+
+        .loadEffect span:nth-child(3) {
+            left: 50%;
+            top: 0;
+            margin-left: -8px;
+            -webkit-animation-delay: 0.39s;
+        }
+
+        .loadEffect span:nth-child(4) {
+            top: 14px;
+            right: 14px;
+            -webkit-animation-delay: 0.52s;
+        }
+
+        .loadEffect span:nth-child(5) {
+            right: 0;
+            top: 50%;
+            margin-top: -8px;
+            -webkit-animation-delay: 0.65s;
+        }
+
+        .loadEffect span:nth-child(6) {
+            right: 14px;
+            bottom: 14px;
+            -webkit-animation-delay: 0.78s;
+        }
+
+        .loadEffect span:nth-child(7) {
+            bottom: 0;
+            left: 50%;
+            margin-left: -8px;
+            -webkit-animation-delay: 0.91s;
+        }
+
+        .loadEffect span:nth-child(8) {
+            bottom: 14px;
+            left: 14px;
+            -webkit-animation-delay: 1.04s;
+        }
+    </style>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/index.css">
+    <script src="./utils/data.js"></script>
+    <script src="./libs/echarts.min.js"></script>
+    <script src="./libs/d3.min.js"></script>
+    <script src="./libs/three.min.js"></script>
+    <script src="./js/controls/OrbitControls.js"></script>
+    <script src="./js/utils/SceneUtils.js"></script>
+    <script src="./libs/d3-threeD.js"></script>
+    <script src="./libs/vue.min.js"></script>
+    <script src="./utils/chart.js"></script>
+    <script src="./utils/map.js"></script>
+    <script src="./utils/THREE.MeshLine.js"></script>
+    <script src="./js/libs/tween.min.js"></script>
+    <script src="./utils/axios.min.js"></script>
+    <title>汽车网络安全态势感知</title>
+</head>
+
+<body>
+
+    <div class="l-loding">
+        <div class="loadEffect">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div id="app">
+        <!-- header -->
+        <div class="g-header">
+            <div class="g-header-title">{{title}}</div>
+            <div class="g-header-time" v-html="date">
+
+            </div>
+        </div>
+        <!-- main -->
+        <div class="g-main">
+            <!-- left -->
+            <div class="g-left">
+                <div class="relative g-bc" style="height:610px">
+                    <cbox title="安全事件类型">
+                        <div class="g-full" slot="main" id="eventType"></div>
+                    </cbox>
+                </div>
+                <div class="g-box-mt relative" style="height:340px">
+                    <cbox title="攻击事件（次）">
+                        <div class="g-full" slot="main" id="attackEvent"></div>
+                    </cbox>
+                </div>
+            </div>
+            <!-- center -->
+            <div class="g-center">
+                <div class="g-select">
+                    <span>最近{{selectDay}}天</span>
+                    <img src="./image/threej.png" alt="">
+                    <ul class="g-selectlist">
+                        <li @click="selectDataDay(item.value)" v-for="item in dayItems" :key="item.value">
+                            最近{{item.value}}天</li>
+                    </ul>
+                </div>
+                <div style="height:696px" class="g-emap">
+                    <span class="backMap" v-if="cityLevel==2" @click="backmap">返回</span>
+                    <div class="gmap" id="map">
+
+                    </div>
+                    <div id="svg"></div>
+                    <img src="./image/jianbian.png" alt="" class="jianbian">
+                    <div class="nanshabox">
+                        <cbox>
+                            <img slot="main" src="./image/nansha.png" alt="南沙群岛" class="nansha">
+                        </cbox>
+                    </div>
+                    <div class="attack-map-list">
+                        <cbox>
+                            <div slot="main">
+                                <div class="attack-map-item">
+                                    <span>攻击</span>
+                                    <span>被攻击</span>
+                                    <span style="min-width:250px">类型</span>
+                                </div>
+                                <div class="attack-map-item map-active" v-for="item in attackMapList" :key="item.id">
+                                    <span>{{item.srcName}}</span>
+                                    <span>{{item.dstName}}</span>
+                                    <span style="min-width:250px">{{item.type}}</span>
+                                </div>
+                            </div>
+                        </cbox>
+                    </div>
+                </div>
+                <div class="relative" style="height:281px">
+                    <div class="g-scroll-list">
+                        <img src="./image/board.png" alt="">
+                        <span>攻击滚动实时展示列表</span>
+                    </div>
+                    <cbox>
+                        <div class="g-full g-atballe-pad" style="overflow: hidden" slot="main">
+                            <table class="g-atballe">
+                                <thead>
+                                    <tr>
+                                        <td>序号</td>
+                                        <td>VIN</td>
+                                        <td>设备编号</td>
+                                        <td>攻击IP</td>
+                                        <td>攻击类型</td>
+                                        <td>车辆所在</td>
+                                        <td>时间</td>
+                                        <!-- <td>攻击</td> -->
+                                        <td>被攻击</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(item,index) in attackList" :class="item.color||''" :key="item.id">
+                                        <td v-html="item.id"></td>
+                                        <td>
+                                            <span class="text-over items-over" style="width:130px;" v-html="item.vin">
+                                                <a href=""></a>
+                                            </span>
+                                        </td>
+                                        <td v-html="item.code"></td>
+                                        <td>
+                                            <span class="text-over items-over" style="width:130px;" v-html="item.ip">
+                                                <a href=""></a>
+                                            </span>
+                                        </td>
+                                        <td v-html="item.type"></td>
+                                        <td v-html="item.address"></td>
+                                        <td v-html="item.date"></td>
+                                        <!-- <td v-html="item.src"></td> -->
+                                        <td v-html="item.dst"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </cbox>
+                </div>
+            </div>
+            <!-- right -->
+            <div class="g-right">
+                <div class="relative" style="height:350px">
+                    <cbox title="攻击来源TOP5">
+                        <div class="g-full" slot="main" id="daily"></div>
+                    </cbox>
+                </div>
+                    <div class="relative g-box-mt" style="height:285px">
+                        <cbox title="概览">
+                            <div slot="main">
+                                <ul class="g-overview">
+                                    <li class="g-overview-item">
+                                        <div class="g-overview-title">{{cartTotal}}</div>
+                                        <div class="g-overview-data">
+                                            车辆总数
+                                        </div>
+                                    </li>
+                                    <li class="g-overview-item">
+                                        <div class="g-overview-title">{{newCar}}</div>
+                                        <div class="g-overview-data">
+                                            今日增加
+                                        </div>
+                                    </li>
+                                    <!-- <li class="g-overview-item">
+                                                        <div class="g-overview-title">{{newEventNum}}</div>
+                                                        <div class="g-overview-data">
+                                                            攻击车辆
+                                                        </div>
+                                                    </li> -->
+                                    <li class="g-overview-item">
+                                        <div class="g-overview-title">{{eventTotal}}</div>
+                                        <div class="g-overview-data">
+                                            累计事件
+                                        </div>
+                                    </li>
+                                    <li class="g-overview-item">
+                                        <div class="g-overview-title">{{newEventNum}}</div>
+                                        <div class="g-overview-data">
+                                            今日事件
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </cbox>
+                    </div>
+                <div class="relative g-box-mt" style="height:285px">
+                    <cbox title="攻击零部件">
+                        <div class="g-full" slot="main">
+                            <ul class="attack-c-items">
+                                <li class="attack-c-item" v-for="item in attackComponents" :key="item.name">
+                                    <div class="ac-title" v-html="item.value"></div>
+                                    <div class="ac-data">
+                                        <img :src="item.img" alt="">
+                                        <span v-html="item.name"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </cbox>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <script src="./utils/index.js"></script>
+</body>
+
+</html>
