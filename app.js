@@ -5,11 +5,13 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
+// const compress = require('koa-compress');
 const index = require('./routes/index')
 const users = require('./routes/users')
 const httpProxy = require('http-proxy-middleware');
 const k2c = require('koa2-connect');
+
+
 // error handler
 onerror(app)
 app.use(async (ctx, next) => {
@@ -27,10 +29,10 @@ app.use(async (ctx, next) => {
   }
   await next()
 })
- 
+
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -47,6 +49,16 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
+//gzip
+
+/* let options = {
+  filter: function (content_type) { 
+    return /text/i.test(content_type);
+  },
+  threshold: 1024,  
+  flush: require('zlib').Z_SYNC_FLUSH
+};
+app.use(compress(options)); */
 
 // routes
 app.use(index.routes(), index.allowedMethods())
